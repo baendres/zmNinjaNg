@@ -4,15 +4,17 @@ android {
     namespace "com.zoneminder.zmNinjaNG"
     compileSdk rootProject.ext.compileSdkVersion
 
-    signingConfigs {
+signingConfigs {
         release {
-            storeFile file(System.getenv("ZMNINJA_KEYSTORE_PATH") ?: '')
-            storePassword System.getenv("ZMNINJA_KEYSTORE_PASSWORD") ?: ''
-            keyAlias System.getenv("ZMNINJA_KEY_ALIAS") ?: ''
-            keyPassword System.getenv("ZMNINJA_KEY_PASSWORD") ?: ''
+            def keystorePath = System.getenv("ZMNINJA_KEYSTORE_PATH")
+            if (keystorePath) {
+                storeFile file(keystorePath)
+                storePassword System.getenv("ZMNINJA_KEYSTORE_PASSWORD") ?: ''
+                keyAlias System.getenv("ZMNINJA_KEY_ALIAS") ?: ''
+                keyPassword System.getenv("ZMNINJA_KEY_PASSWORD") ?: ''
+            }
         }
     }
-
     defaultConfig {
         applicationId "com.zoneminder.zmNinjaNG"
         minSdkVersion rootProject.ext.minSdkVersion
